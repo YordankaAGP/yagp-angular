@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Nama Supplier</th>
+          <th>Alamat</th>
+          <th>Barang</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let obj of suppliers">
+          <td>{{ obj.nama }}</td>
+          <td>{{ obj.alamat }}</td>
+          <td>
+            <ul *ngFor="let b of obj.listBarang">
+              <li>{{b.namaBarang}}</li>
+              <li>{{b.deskripsi}}</li>
+              <li>{{b.harga}}</li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

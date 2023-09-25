@@ -1,0 +1,86 @@
+<div class="d-flex justify-content-end mb-4">
+  <app-modal [customButton]="'btn btn-dark'" [customCard]="'h-75 overflow-y-auto'" [customFooter]="addButtons">
+    <div trigger>+ Tambah</div>
+    <div head>Transaksi</div>
+    <div content>
+      <div class="col form-group">
+        <div ngbAccordion *ngFor="let s of suppliers; index as idxSupplier">
+          <div ngbAccordionItem *ngIf="s.listBarang.length > 0">
+            <h2 ngbAccordionHeader>
+              <button ngbAccordionButton>{{ s.nama }}</button>
+            </h2>
+            <div ngbAccordionCollapse>
+              <div ngbAccordionBody style="background-color: beige;">
+                <ng-template>
+                  <table class="table table-bordered bg-white">
+                    <thead>
+                      <tr>
+                        <th>Nama</th>
+                        <th>Deskripsi</th>
+                        <th>Harga</th>
+                        <th>Quantity</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let b of s.listBarang; index as idxBarang">
+                        <td>{{ b.namaBarang }}</td>
+                        <td>{{ b.deskripsi }}</td>
+                        <td>{{ b.harga }}</td>
+                        <td>
+                          <input value="0" type="number" class="form-control" (change)="replaceSupplier(s)"
+                            placeholder="Qty" [(ngModel)]="transaksiForm.supplier[0].listBarang[0].qty">
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </app-modal>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Tanggal</th>
+          <th>Total</th>
+          <th>Supplier</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let t of transaksiList">
+          <td>{{ t.tanggal }}</td>
+          <td>{{ t.grandTotal }}</td>
+          <td>
+            <ul *ngFor="let s of t.supplier; index as j">
+              <li>
+                {{ s.alamat }}
+                {{ s.nama }}
+              </li>
+            </ul>
+            <!-- <app-modal [customButton]="'btn btn-dark'" [customCard]="'h-75 overflow-y-auto'">
+              <div trigger>Detail</div>
+              <div head>Detail</div>
+              <div content>
+                <div class="col form-group">
+                  <ul *ngFor="let s of t.supplier; index as j">
+                    <li>
+                      {{ s.alamat }}
+                      {{ s.nama }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </app-modal> -->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+{{transaksiList | json}}
